@@ -34,9 +34,9 @@ const Login = () => {
           <Button fullWidth type="submit" variant="contained" sx={{ mt: 2 }}>Login</Button>
         </form>
         {error && <Typography color="error">{error}</Typography>}
-        <Typography sx={{ mt: 2 }}>
+        {/* <Typography sx={{ mt: 2 }}>
           Don't have an account? <Link href="/register">Register</Link>
-        </Typography>
+        </Typography> */}
       </Box>
     </Container>
   );

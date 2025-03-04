@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Container, Tabs, Tab, Card, CardContent, Typography, CircularProgress, Avatar, Grid } from "@mui/material";
+import { Container, Tabs, Tab, Card, CardContent, Typography, CircularProgress, Avatar, Box } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import axios from "axios";
 import LanguageSelection from "./LanguageSelection ";
@@ -24,7 +24,6 @@ const Dashboard = () => {
             if (response.data.isSuccess) {
                 setSongs(response.data.songs);
 
-                // Extract unique albums
                 const uniqueAlbums = {};
                 response.data.songs.forEach((song) => {
                     if (song.album && !uniqueAlbums[song.album]) {
@@ -49,7 +48,7 @@ const Dashboard = () => {
     }
 
     const handlePlaySong = (song) => {
-        if (currentSong&&currentSong._id === song._id) {
+        if (currentSong && currentSong._id === song._id) {
             audioRef.current.pause();
             setCurrentSong(null);
         }
@@ -81,7 +80,7 @@ const Dashboard = () => {
             ) : (
                 <>
                     {tabValue === 0 && (
-                        <Grid2 container spacing={2} p={3} justifyContent="center" sx={{ width: "50vw" }}>
+                        <Grid2 container spacing={2} p={3} justifyContent="center" sx={{ width: "40vw" }}>
                             {songs.map((song) => (
                                 <Grid2 key={song._id} size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
                                     <Card
@@ -105,7 +104,13 @@ const Dashboard = () => {
                                         />
                                         <CardContent sx={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                             <div style={{ display: "flex", alignItems: "center" }}>
-                                                <Typography variant="h6" sx={{ ml: 1, mr: 4 }}>{song.title}</Typography>
+                                                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                                                    <Typography variant="h6" sx={{ ml: 1, mr: 4 }}>{song.title}</Typography>
+                                                    <Box sx={{ display: "flex" }}>
+                                                        <Typography variant="h7" sx={{ ml: 1 }}>{song.album}</Typography>,
+                                                        <Typography variant="h7" sx={{ ml: 1, mr: 4 }}>{song.artist}</Typography>
+                                                    </Box>
+                                                </Box>
                                                 {currentSong && currentSong._id === song._id && (
                                                     <div className="playing-animation">
                                                         <span></span>
