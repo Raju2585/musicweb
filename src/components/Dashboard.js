@@ -12,6 +12,7 @@ const Dashboard = () => {
     const [albums, setAlbums] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentSong, setCurrentSong] = useState(null);
+    const [showLanguageSelection,setShowLanguageSelection]=useState(true);
     const audioRef = useRef(null);
 
     const fetchSongs = async () => {
@@ -42,9 +43,10 @@ const Dashboard = () => {
     useEffect(() => {
         fetchSongs();
     }, []);
+    console.log(showLanguageSelection);
 
-    if (!userInfo.languagePreference || userInfo.languagePreference.length === 0) {
-        return <LanguageSelection />;
+    if (showLanguageSelection) {
+        return <LanguageSelection setShowLanguageSelection={setShowLanguageSelection}/>;
     }
 
     const handlePlaySong = (song) => {
